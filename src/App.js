@@ -244,48 +244,63 @@ const TeamConfigurator = () => {
           <PolarGrid radialLines={false} stroke="white" strokeWidth={2} />
           
           <PolarAngleAxis 
-        dataKey="question"
-        tick={({ payload, x, y, cx, cy }) => {
-          const radius = 80; // Distanza maggiore dal centro
-          const angle = Math.atan2(y - cy, x - cx);
-          const newX = x + Math.cos(angle) * radius;
-          const newY = y + Math.sin(angle) * radius;
+  dataKey="question"
+  tick={({ payload, x, y, cx, cy }) => {
+    const radius = 80; // Distanza maggiore dal centro
+    const angle = Math.atan2(y - cy, x - cx);
+    const newX = x + Math.cos(angle) * radius;
+    const newY = y + Math.sin(angle) * radius;
 
-          const iconSize = 20; // Dimensione icona
-          const textOffset = 50; // Spazio tra icona e testo
+    const iconSize = 20; // Dimensione icona
+    const textOffset = 50; // Spazio tra icona e testo
 
-          // Dividere il testo in parole
-          const words = payload.value.split(" ");
-          const maxWordsPerLine = 2; // Numero massimo di parole per riga
-          const lines = [];
+    // Dividere il testo ogni X caratteri o dopo ogni parola
+    const splitText = (text, maxCharsPerLine = 12) => {
+      const words = text.split(" ");
+      const lines = [];
+      let currentLine = "";
 
-          for (let i = 0; i < words.length; i += maxWordsPerLine) {
-            lines.push(words.slice(i, i + maxWordsPerLine).join(" "));
-          }
+      words.forEach((word) => {
+        if ((currentLine + word).length > maxCharsPerLine) {
+          lines.push(currentLine.trim());
+          currentLine = word + " ";
+        } else {
+          currentLine += word + " ";
+        }
+      });
 
-          return (
-            <>
-              {/* Aggiunge l'icona PNG prima del testo */}
-              <image 
-                href={iconSrc} 
-                x={newX - textOffset - iconSize - 8}
-                y={newY - iconSize / 3} 
-                width={iconSize} 
-                height={iconSize}
-              />
+      if (currentLine.trim()) {
+        lines.push(currentLine.trim());
+      }
 
-              {/* Testo con margine per l'icona */}
-              <text className="label" x={newX} y={newY} textAnchor="start">
-                {lines.map((line, index) => (
-                  <tspan key={index} x={newX - textOffset} dy={index === 0 ? "0" : "1.5em"}>
-                    {line}
-                  </tspan>
-                ))}
-              </text>
-            </>
-          );
-        }}
-      />
+      return lines;
+    };
+
+    const lines = splitText(payload.value, 10); // Cambia il numero di caratteri per riga
+
+    return (
+      <>
+        {/* Aggiunge l'icona PNG prima del testo */}
+        <image 
+          href={iconSrc} 
+          x={newX - textOffset - iconSize - 8}
+          y={newY - iconSize / 3} 
+          width={iconSize} 
+          height={iconSize}
+        />
+
+        {/* Testo con margine per l'icona */}
+        <text className="label" x={newX} y={newY} textAnchor="start">
+          {lines.map((line, index) => (
+            <tspan key={index} x={newX - textOffset} dy={index === 0 ? "0" : "1.5em"}>
+              {line}
+            </tspan>
+          ))}
+        </text>
+      </>
+    );
+  }}
+/>
 
 
 
