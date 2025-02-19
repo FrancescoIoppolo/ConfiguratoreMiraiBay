@@ -67,6 +67,7 @@ h1 {
   align-items: center;
   padding: 10px;
   position: relative;
+  min-height: 438px;
 }
 
 .manager-card.selected {
@@ -126,7 +127,7 @@ h1 {
 
 .tag-card.highlighted .tag-text {
   border-color: var(--tag-color); 
-  color: white; /* Testo in contrasto */
+  color: white;
 }
 
 .work-modes-grid {
@@ -144,11 +145,11 @@ h1 {
   text-align: center;
   transition: 0.3s;
   width: 250px;
-  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   border: 3px solid transparent;
+  margin-bottom: 30px;
 }
 
 .work-mode-card:hover {
@@ -234,34 +235,55 @@ h1 {
 }
 
 
-/* Contenitore della domanda + input range */
 .question-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  border: 2px solid #3b82f6; /* Bordo blu */
+  border: 2px solid ;
   border-radius: 20px;
   max-width: 800px;
   margin: 15px auto;
   background: black;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  margin-bottom: 30px;
 }
 
-/* Testo della domanda */
+.inputRangeWrap{
+  width: 50%;
+}
+
+.inputRange{
+  border-radius: 4px;
+  height: 8px;  
+}
+
 .question-text {
   color: white;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
+  width: 40%;
+  text-align: left;
 }
 
-/* Contenitore dell'input range */
+.numberOverRange {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: -25px;
+  width: 100%;
+  font-size: 14px;
+}
+
 .range-wrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: relative;
+  width: 60%;
+  margin-top: 30px;
 }
+
 
 .button-container {
   display: flex;
@@ -271,11 +293,11 @@ h1 {
 }
 
 .button-container {
-  display: flex; /* Imposta Flexbox */
-  justify-content: center; /* Centra i bottoni orizzontalmente */
-  align-items: center; /* Centra verticalmente (se necessario) */
-  gap: 20px; /* Distanza tra i bottoni */
-  margin-top: 50px; /* Spazio dall'alto */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  gap: 20px; 
+  margin-top: 50px;
 }
 
 button {
@@ -307,14 +329,13 @@ button:hover .icon {
   transform: translateX(5px);
 }
 
-.modeCerchio{
+.modeCerchio {
   width: 51px;
   height: 51px;
   background-color: #9C9C9C;
-  margin: 0 auto;
-  padding-top: 51px;
-  margin-top: 10px;
-  border-radius: 100%;
+  margin: 10px auto;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 
 .modeTitle{
@@ -340,10 +361,10 @@ button:hover .icon {
 .chart-container {
   width: 60%;
   height: 450px;
+  display: block;
 }
 
 .summary-sidebar {
-  width: 40%;
   display: flex;
   flex-direction: column;
 }
@@ -361,10 +382,10 @@ button:hover .icon {
 }
 
 .label {
-  fill: white;  /* Cambia il colore del testo */
-  font-family: 'Poppins', sans-serif; /* Cambia font */
-  font-size: 10px; /* Cambia la dimensione del testo */
-  font-weight: bold; /* Testo in grassetto */
+  fill: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px; 
+  font-weight: bold;
   filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5));
   text-transform: uppercase;
 }
@@ -411,4 +432,162 @@ button:hover .icon {
   top: -10px;
   font-size: 14px;
   color: white;
+}
+
+.chart-container-bar {
+  display: none;
+}
+
+.managerCardGrafico {
+  width: 100%; 
+  max-width: 350px; 
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 20px;
+ 
+}
+
+
+@media (max-width: 1100) {
+  h1 {
+    font-size: 32px;
+  }
+
+  .subTitle {
+    font-size: 14px;
+    line-height: 1.5rem;
+  }
+
+  .work-modes-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .work-mode-card {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    padding: 15px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button {
+    width: 100%;
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 1100px) {
+  h1 {
+    font-size: 28px;
+  }
+
+  .subTitle {
+    font-size: 12px;
+  }
+
+  .work-mode-card {
+    max-width: 250px;
+    padding: 10px;
+  }
+
+  .modeTitle {
+    font-size: 20px;
+  }
+
+  .modeDescription {
+    font-size: 14px;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+
+
+@media (max-width:  1100px) {
+  .summary-container {
+    order: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; 
+  }
+
+  .summary-sidebar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chart-container {
+    order: 2;
+    display: none;
+    width: 100%;
+    height: auto; 
+    min-height: 400px;
+  }
+
+  .chart-container-bar {
+    order: 2;
+    display: block!important;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .summaryWork {
+    order: 3;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .selected-manager{
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    min-height: 350px;
+  }
+
+  .selected-manager{
+    display: none;
+  }
+
+  .work-modes-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .work-mode-card {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .work-mode-card{
+    min-height: none!important;
+  }
+
+}
+
+.recharts-responsive-container{
+  height: 1250px!important;
+}
+
+.recharts-wrapper{
+  width: 100%!important;
+}
+
+.recharts-tooltip-cursor {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
