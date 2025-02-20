@@ -269,10 +269,6 @@ const TeamConfigurator = () => {
     </div>
   </div>
 )}
-
-
-
-  
       {/* Sezione TAG SEMPRE VISIBILE */}
       {currentStep != 8 && ( <div className="tags-section">
         <div className="tags-wrapper">
