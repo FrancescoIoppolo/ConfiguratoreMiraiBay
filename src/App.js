@@ -318,7 +318,6 @@ const TeamConfigurator = () => {
         </div>
       </div>
       )}
-  
     </div>
   );
   
