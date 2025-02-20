@@ -4,10 +4,7 @@ import Step1 from "./components/Step1";
 import Step2 from "./components/Step2";
 import Step3 from "./components/Step3";
 import Step4 from "./components/Step4";
-
-
-import arrowR from "./assets/arrowR.png";
-import arrowL from "./assets/arrowL.png";
+import Step5 from "./components/Step5";
 
 const shuffleArray = (array) => array.sort(() => Math.random() - 0.5);
 const allTags = shuffleArray(
@@ -36,7 +33,6 @@ const TeamConfigurator = () => {
     JSON.parse(localStorage.getItem("selectedWorkMode")) || null
   );
 
-
   // Salvo i dati nel Local Storage quando cambiano
   useEffect(() => {
     localStorage.setItem("selectedManagers", JSON.stringify(selectedManagers));
@@ -45,7 +41,6 @@ const TeamConfigurator = () => {
     localStorage.setItem("selectedWorkMode", JSON.stringify(selectedWorkMode));
   }, [selectedManagers, currentStep, answers, selectedWorkMode]);
   
-
   // Funzione per trasformare i dati in un formato adatto al grafico
   const prepareChartData = (selectedManagers, answers) => {
     // Ottieni tutte le domande possibili
@@ -82,7 +77,6 @@ const TeamConfigurator = () => {
     });
   };
   
-
   // Funzione per selezionare/deselezionare manager
   const toggleManagerSelection = (manager) => {
     setSelectedManagers((prev) => {
@@ -93,9 +87,6 @@ const TeamConfigurator = () => {
       }
     });
   };
-
-
-  
 
   // Resetta il Local Storage e lo stato
   const resetSelection = () => {
@@ -108,8 +99,6 @@ const TeamConfigurator = () => {
     setCurrentManagerIndex(0);
   };
 
-
-  
   return (
     <div className="team-configurator">
       
@@ -122,7 +111,6 @@ const TeamConfigurator = () => {
           hoveredManager={hoveredManager}
           setHoveredManager={setHoveredManager}
           toggleManagerSelection={toggleManagerSelection}
-          arrowR="➡️"
         />
       )}
 
@@ -159,116 +147,18 @@ const TeamConfigurator = () => {
       selectedWorkMode = {selectedWorkMode}
       setCurrentManagerIndex = {setCurrentManagerIndex}
       resetSelection = {resetSelection}
-
     /> 
-        )}
+    )}
 
+      {/* Step 5 - Inserimento dati utente */}
+      <Step5
+          setCurrentStep={setCurrentStep}
+          answers={answers}
+          currentStep={currentStep}
+          resetSelection={resetSelection}
+          setAnswers={setAnswers}
+        />
 
-
-
-
-{/* Step 5 - Inserimento dati utente */}
-{currentStep === 5 && (
-  <div className="step-container">
-    <h1>Conosciamoci</h1>
-    <p className="subTitle">Dicci di più su di te e la tua attività</p>
-
-    <div className="form-container">
-      <input
-        type="text"
-        placeholder="Scrivi il tuo nome e cognome"
-        value={answers.name || ""}
-        onChange={(e) => setAnswers((prev) => ({ ...prev, name: e.target.value }))}
-      />
-    </div>
-    <div className="navigation-buttons button-container">
-      <button onClick={() => setCurrentStep(4)}>
-        <img src={arrowL} alt="Freccia left" /> Indietro
-      </button>
-      <button onClick={() => setCurrentStep(6)}>
-        Avanti <img src={arrowR} alt="Freccia right" />
-      </button>
-    </div>
-  </div>
-)}
-
-{/* Step 6 - Inserimento dati utente */}
-{currentStep === 6  && (
-  <div className="step-container">
-    <h1>Conosciamoci</h1>
-    <p className="subTitle">Dicci di più su di te e la tua attività</p>
-
-    <div className="form-container">
-      <input
-        type="text"
-        placeholder="La tua email di riferimento"
-        value={answers.mail || ""}
-        onChange={(e) => setAnswers((prev) => ({ ...prev, mail: e.target.value }))}
-      />
-      <input
-        type="text"
-        placeholder="Il tuo numero di telefono /cellulare"
-        value={answers.tel || ""}
-        onChange={(e) => setAnswers((prev) => ({ ...prev, tel: e.target.value }))}
-      />
-    </div>
-
-    <div className="navigation-buttons button-container">
-      <button onClick={() => setCurrentStep(5)}>
-        <img src={arrowL} alt="Freccia left" /> Indietro
-      </button>
-      <button onClick={() => setCurrentStep(7)}>
-        Avanti <img src={arrowR} alt="Freccia right" />
-      </button>
-    </div>
-  </div>
-)}
-
-
-
-{/* Step 7 - Inserimento dati utente */}
-{currentStep === 7  && (
-  <div className="step-container">
-    <h1>Conosciamoci</h1>
-    <p className="subTitle">Dicci di più su di te e la tua attività</p>
-
-    <div className="form-container">
-      <input
-        type="text"
-        placeholder="Il nome della tua azienda o attività?"
-        value={answers.attivita || ""}
-        onChange={(e) => setAnswers((prev) => ({ ...prev, attivita: e.target.value }))}
-      />
-      <input
-        type="text"
-        placeholder="Il tuo sito web"
-        value={answers.sito || ""}
-        onChange={(e) => setAnswers((prev) => ({ ...prev, sito: e.target.value }))}
-      />
-    </div>
-
-    <div className="navigation-buttons button-container">
-      <button onClick={() => setCurrentStep(6)}>
-        <img src={arrowL} alt="Freccia left" /> Indietro
-      </button>
-      <button onClick={() => setCurrentStep(8)}>
-        Avanti <img src={arrowR} alt="Freccia right" />
-      </button>
-    </div>
-  </div>
-)}
-
-{/* Step 8 - Riepilogo finale */}
-{currentStep === 8 && (
-  <div className="step-container">
-    <h1>Grazie!</h1>
-    <p className="subTitle">Abbiamo ricevuto le tue informazioni. Ti contatteremo presto.</p>
-    <div className="navigation-buttons button-container">
-
-      <button onClick={resetSelection}>Ricomincia</button>
-    </div>
-  </div>
-)}
       {/* Sezione TAG SEMPRE VISIBILE */}
       {currentStep != 8 && ( <div className="tags-section">
         <div className="tags-wrapper">
@@ -320,7 +210,6 @@ const TeamConfigurator = () => {
       )}
     </div>
   );
-  
 };
 
 export default TeamConfigurator;

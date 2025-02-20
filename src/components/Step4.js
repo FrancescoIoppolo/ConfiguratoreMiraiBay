@@ -14,7 +14,6 @@ import {
     XAxis,
     YAxis,
     Tooltip,
-    CartesianGrid,
   } from "recharts";
 
 const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, workModes, selectedWorkMode, setCurrentManagerIndex, resetSelection}) => {
@@ -27,15 +26,15 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
         {/* Radar Chart */}
         <div className="chart-container">
           <ResponsiveContainer height={500}>
-            <RadarChart cx="50%" cy="50%" outerRadius="60%" data={prepareChartData(selectedManagers, answers)}>
+            <RadarChart cx="50%" cy="50%" outerRadius="50%" data={prepareChartData(selectedManagers, answers)}>
               <PolarGrid radialLines={false} stroke="white" strokeWidth={2} />
 
               <PolarAngleAxis
                 dataKey="question"
                 tick={({ payload, x, y, cx, cy }) => {
-                  const radius = 80; // Distanza maggiore dal centro
+                  const radius = 80;
                   const angle = Math.atan2(y - cy, x - cx);
-                  const newX = x + Math.cos(angle) * radius;
+                  const newX = x + Math.cos(angle) * radius + 25;
                   const newY = y + Math.sin(angle) * radius;
 
                   const iconSize = 20;
@@ -119,104 +118,101 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
 
 
         <div className="chart-container-bar bar-chart">
-  <ResponsiveContainer height={selectedManagers.length * 220}> 
-    {selectedManagers.map((manager, index) => {
-      // Filtra solo le domande di questo manager
-      const managerData = prepareChartData(selectedManagers, answers).filter((item) =>
-        manager.questions.includes(item.question)
-      );
+        <ResponsiveContainer height={selectedManagers.length * 220}> 
+          {selectedManagers.map((manager, index) => {
+            // Filtra solo le domande di questo manager
+            const managerData = prepareChartData(selectedManagers, answers).filter((item) =>
+              manager.questions.includes(item.question)
+            );
 
-      return (
-        <div key={manager.id} className="manager-chart-block">
-          {/* Nome del manager sopra il suo blocco */}
-          <img className="managerCardGrafico" src={manager.images.card} alt={manager.role} />
-          <BarChart
-          className="no-hover"
-            data={managerData}
-            layout="vertical"
-            width={350}
-            height={managerData.length * 70} // Aumenta la spaziatura tra le domande
-          >
-            {/* Asse X per i valori */}
-            <XAxis 
-                type="number" 
-                domain={[0, 10]} 
-                stroke="white" 
-                tick={{ fontSize: "10px" }} 
-                tickCount={11} // Mostra tutti i valori da 0 a 10
-                />
+            return (
+              <div key={manager.id} className="manager-chart-block">
+                {/* Nome del manager sopra il suo blocco */}
+                <img className="managerCardGrafico" src={manager.images.card} alt={manager.role} />
+                <BarChart
+                className="no-hover"
+                  data={managerData}
+                  layout="vertical"
+                  width={350}
+                  height={managerData.length * 70} // Aumenta la spaziatura tra le domande
+                >
+                  {/* Asse X per i valori */}
+                  <XAxis 
+                      type="number" 
+                      domain={[0, 11]} 
+                      stroke="white" 
+                      tick={{ fontSize: "10px" }} 
+                      tickCount={11}
+                      />
 
-            {/* Asse Y per le domande con massimo una riga di interruzione */}
-            <YAxis
-              dataKey="question"
-              type="category"
-              width={150}
-              stroke="white"
-              tick={(props) => {
-                const { x, y, payload } = props;
+                  {/* Asse Y per le domande con massimo una riga di interruzione */}
+                  <YAxis
+                    dataKey="question"
+                    type="category"
+                    width={150}
+                    stroke="white"
+                    tick={(props) => {
+                      const { x, y, payload } = props;
 
-                // Funzione per spezzare il testo su massimo due righe
-                const splitText = (text, maxCharsPerLine = 20) => {
-                  if (text.length <= maxCharsPerLine) return [text];
+                      // Funzione per spezzare il testo su massimo due righe
+                      const splitText = (text, maxCharsPerLine = 20) => {
+                        if (text.length <= maxCharsPerLine) return [text];
 
-                  const index = text.lastIndexOf(" ", maxCharsPerLine);
-                  if (index === -1) return [text]; // Se non c'è spazio, restituisce tutto il testo su una riga
-                  
-                  return [text.slice(0, index), text.slice(index + 1)];
-                };
+                        const index = text.lastIndexOf(" ", maxCharsPerLine);
+                        if (index === -1) return [text]; // Se non c'è spazio, restituisce tutto il testo su una riga
+                        
+                        return [text.slice(0, index), text.slice(index + 1)];
+                      };
 
-                const lines = splitText(payload.value);
+                      const lines = splitText(payload.value);
 
-                return (
-                  <text x={x} y={y} fill="white" fontSize="14" textAnchor="end">
-                    {lines.map((line, index) => (
-                      <tspan key={index} x={x} dy={index === 0 ? "0" : "1.5em"}>
-                        {line}
-                      </tspan>
-                    ))}
-                  </text>
-                );
-              }}
-            />
+                      return (
+                        <text x={x} y={y} fill="white" fontSize="14" textAnchor="end">
+                          {lines.map((line, index) => (
+                            <tspan key={index} x={x} dy={index === 0 ? "0" : "1.5em"}>
+                              {line}
+                            </tspan>
+                          ))}
+                        </text>
+                      );
+                    }}
+                  />
 
-            {/* Tooltip rimosso per evitare la descrizione al passaggio del mouse */}
-            <Tooltip wrapperStyle={{ display: "none" }} content={<></>} />
+                  {/* Tooltip rimosso per evitare la descrizione al passaggio del mouse */}
+                  <Tooltip wrapperStyle={{ display: "none" }} content={<></>} />
 
-            {/* Barre colorate in base al manager */}
-     
-            <Bar
-                dataKey="value"
-                barSize={20}
-                shape={(props) => {
-                    const { x, y, width, height, payload } = props;
-                    const offset = 10; // Sposta la barra verso destra
+                  {/* Barre colorate in base al manager */}
+          
+                  <Bar
+                      dataKey="value"
+                      barSize={20}
+                      shape={(props) => {
+                          const { x, y, width, height, payload } = props;
+                          const offset = 10; // Sposta la barra verso destra
 
-                    return (
-                    <rect 
-                        x={x + offset} 
-                        y={y} 
-                        width={width} 
-                        height={height} 
-                        fill={manager.color} 
-                        rx="5" ry="5" 
-                        pointerEvents="none" // Evita sottolineature o interazioni al passaggio del mouse
-                    />
-                    );
-                }}
-                />
+                          return (
+                          <rect 
+                              x={x + offset} 
+                              y={y} 
+                              width={width} 
+                              height={height} 
+                              fill={manager.color} 
+                              rx="5" ry="5" 
+                              pointerEvents="none" // Evita sottolineature o interazioni al passaggio del mouse
+                          />
+                          );
+                      }}
+                      />
 
-          </BarChart>
+                </BarChart>
 
-          {/* Spazio extra tra un manager e l'altro */}
-          {index < selectedManagers.length - 1 && <div className="manager-separator"></div>}
-        </div>
-      );
-    })}
-  </ResponsiveContainer>
-</div>
-
-
-
+                {/* Spazio extra tra un manager e l'altro */}
+                {index < selectedManagers.length - 1 && <div className="manager-separator"></div>}
+              </div>
+            );
+          })}
+        </ResponsiveContainer>
+      </div>
 
         {/* Box laterale con le info selezionate */}
         <div className="summary-sidebar">
