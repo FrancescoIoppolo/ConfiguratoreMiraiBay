@@ -228,13 +228,21 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
       {/* Pulsanti di navigazione */}
       <div className="summaryWork">
         <h3 className="modalitaLavoro">Modalità di lavoro</h3>
-          <div className="work-modes-grid">
-            <div className="work-mode-card">
+        <div className="work-modes-grid">
+          <div className="work-mode-card">
+            {workModes.find((mode) => mode.id === selectedWorkMode) && (
               <h3 className="modeTitle">
+                <div className="modeCerchio">
+                  <img
+                    src={workModes.find((mode) => mode.id === selectedWorkMode)?.icon}
+                    alt={workModes.find((mode) => mode.id === selectedWorkMode)?.title}
+                  />
+                </div>
                 {workModes.find((mode) => mode.id === selectedWorkMode)?.title}
               </h3>
-            </div>
+            )}
           </div>
+        </div>
       </div>
 
       {/* Pulsanti di navigazione */}

@@ -99,6 +99,60 @@ const TeamConfigurator = () => {
     setCurrentManagerIndex(0);
   };
 
+
+
+  useEffect(() => {
+    if (currentStep === 8) { // Appena prima della pagina "Grazie!"
+      // Otteniamo tutte le domande possibili per ogni manager
+      const allQuestions = [...new Set(managersData.flatMap(manager => manager.questions))];
+  
+      // Struttura le risposte, includendo tutte le domande anche se non risposte
+      const formattedAnswers = selectedManagers.reduce((acc, manager) => {
+        acc[manager.id] = allQuestions.map(question => ({
+          question,
+          percentage: answers[manager.id]?.[question] !== undefined
+            ? `${answers[manager.id][question]}%`
+            : 5 // Se la domanda non è stata modificata, segniamo come "Default"
+        }));
+        return acc;
+      }, {});
+  
+      // Dati finali da inviare
+      const finalResults = {
+        selectedManagers: selectedManagers.map(manager => ({
+          id: manager.id,
+          name: manager.name
+        })),
+        answers: formattedAnswers,
+        selectedWorkMode,
+        userData: {
+          name: answers.name || "Non specificato",
+          email: answers.mail || "Non specificato",
+          telefono: answers.tel || "Non specificato",
+          attivita: answers.attivita || "Non specificato",
+          sitoWeb: answers.sito || "Non specificato"
+        }
+      };
+  
+      console.log("Risultati finali:", finalResults);
+  
+      // Invia i dati al file PHP
+      fetch("tuo_file.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(finalResults)
+      })
+        .then(response => response.json())
+        .then(data => console.log("Risposta dal server:", data))
+        .catch(error => console.error("Errore nell'invio dei dati:", error));
+    }
+  }, [currentStep]); // Si attiva solo quando currentStep diventa 8
+  
+  
+
+
   return (
     <div className="team-configurator">
       

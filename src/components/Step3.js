@@ -29,7 +29,7 @@ const Step2 = ({
             onClick={() => toggleWorkModeSelection(mode.id)}
           >
             <div className="mode-header"></div>
-            <div className="modeCerchio"></div>
+            <div className="modeCerchio"><img src={mode.icon} alt={mode.title} /></div>
             <h3 className="modeTitle">{mode.title}</h3>
             <p className="modeDescription">{mode.description}</p>
           </div>

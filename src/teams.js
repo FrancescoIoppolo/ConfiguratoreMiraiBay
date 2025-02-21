@@ -18,6 +18,10 @@ import andreaHover from "./assets/hover_Andrea.png";
 import andreaActive from "./assets/active_Andrea.png";
 import andreaCard from "./assets/card_Andrea.png";
 
+import consulenza from "./assets/consulenza.png";
+import done_for_you from "./assets/done_for_you.png";
+import fte from "./assets/fte.png";
+
 import icon1 from "./assets/icon-1.png";
 import icon2 from "./assets/icon-2.png";
 import icon3 from "./assets/icon-3.png";
@@ -153,20 +157,24 @@ const managersData = [
   }
 ];
 
+
 const workModes = [
   {
     id: "done_for_you",
     title: "Done for you",
+    icon: done_for_you,
     description: "Gestiamo in maniera completa tutte le attività necessarie per raggiungere i tuoi obiettivi."
   },
   {
     id: "consulenza",
     title: "Consulenza",
+    icon: consulenza,
     description: "Forniamo supporto strategico su misura per guidarti nel raggiungimento degli obiettivi di crescita."
   },
   {
     id: "fte",
     title: "FTE",
+    icon: fte,
     description: "Ti assegniamo, in maniera esclusiva, un esperto dedicato alle tue esigenze, sia in sede che da remoto."
   }
 ];

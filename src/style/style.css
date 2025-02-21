@@ -333,10 +333,13 @@ button:hover .icon {
 .modeCerchio {
   width: 51px;
   height: 51px;
-  background-color: #9C9C9C;
   margin: 10px auto;
   border-radius: 50%;
   aspect-ratio: 1/1;
+}
+
+.modeCerchio img{
+  width: 50px;
 }
 
 .modeTitle{
