@@ -62,7 +62,7 @@ const Step2 = ({
                 handleRangeChange(currentManager.id, question, e.target.value)
               }
               style={{
-                width: "100%", // Barra più lunga
+                width: "100%",
                 accentColor: currentManager.color
                 
               }}

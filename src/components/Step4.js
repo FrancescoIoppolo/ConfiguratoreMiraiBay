@@ -118,7 +118,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
 
 
         <div className="chart-container-bar bar-chart">
-        <ResponsiveContainer height={selectedManagers.length * 220}> 
+        <ResponsiveContainer > 
           {selectedManagers.map((manager, index) => {
             // Filtra solo le domande di questo manager
             const managerData = prepareChartData(selectedManagers, answers).filter((item) =>
@@ -178,8 +178,6 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                     }}
                   />
 
-                  {/* Tooltip rimosso per evitare la descrizione al passaggio del mouse */}
-                  <Tooltip wrapperStyle={{ display: "none" }} content={<></>} />
 
                   {/* Barre colorate in base al manager */}
           
@@ -188,7 +186,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                       barSize={20}
                       shape={(props) => {
                           const { x, y, width, height, payload } = props;
-                          const offset = 10; // Sposta la barra verso destra
+                          const offset = 10;
 
                           return (
                           <rect 
@@ -198,7 +196,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                               height={height} 
                               fill={manager.color} 
                               rx="5" ry="5" 
-                              pointerEvents="none" // Evita sottolineature o interazioni al passaggio del mouse
+                              pointerEvents="none" 
                           />
                           );
                       }}

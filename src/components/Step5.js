@@ -27,7 +27,6 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
     return Object.keys(newErrors).length === 0; // True se non ci sono errori
   };
   
-
   // Funzione per avanzare di step con validazione
   const goToNextStep = (nextStep) => {
     if (validateStep(currentStep)) {

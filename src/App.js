@@ -55,7 +55,7 @@ const TeamConfigurator = () => {
       // Se almeno un manager ha risposto, calcola la media
       const avgValue = values.length > 0 
         ? values.reduce((sum, value) => sum + parseFloat(value), 0) / values.length 
-        : 5; // Se nessun manager ha risposto, imposta a 0
+        : 5; // Se nessun manager ha risposto, imposto il valore inizizle
   
       return { question, value: avgValue };
     });
@@ -134,10 +134,8 @@ const TeamConfigurator = () => {
         }
       };
   
-      console.log("Risultati finali:", finalResults);
-  
-      // Invia i dati al file PHP
-      fetch("tuo_file.php", {
+      // Invia i dati via emmail al file PHP
+      fetch("http://www.v-group.it/progetti/configuratore/sendmail.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -145,10 +143,9 @@ const TeamConfigurator = () => {
         body: JSON.stringify(finalResults)
       })
         .then(response => response.json())
-        .then(data => console.log("Risposta dal server:", data))
         .catch(error => console.error("Errore nell'invio dei dati:", error));
     }
-  }, [currentStep]); // Si attiva solo quando currentStep diventa 8
+  }, [currentStep]);
   
   
 
