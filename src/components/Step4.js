@@ -255,7 +255,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
         <div className="work-modes-grid">
           <div className="work-mode-card-risultati">
             {workModes.find((mode) => mode.id === selectedWorkMode) && (
-              <h3 className="modeTitle">
+              <div className="modeTitle">
                 <div className="modeCerchio">
                   <img
                     src={workModes.find((mode) => mode.id === selectedWorkMode)?.icon}
@@ -263,7 +263,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                   />
                 </div>
                 {workModes.find((mode) => mode.id === selectedWorkMode)?.title}
-              </h3>
+              </div>
             )}
           </div>
         </div>

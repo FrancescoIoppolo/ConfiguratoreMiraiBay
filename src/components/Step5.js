@@ -149,10 +149,10 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
           <h1>Grazie!</h1>
           <p className="subTitle">Abbiamo ricevuto le tue informazioni. Ti contatteremo presto.</p>
           <div className="navigation-buttons button-container">
-            {/* <button onClick={resetSelection}>Ricomincia</button> */}
-            <button onClick={() => setCurrentStep(7)}>
+            <button onClick={resetSelection}>Ricomincia</button>
+            {/* <button onClick={() => setCurrentStep(7)}>
               <img src={arrowL} alt="Freccia left" /> Indietro
-            </button>
+            </button> */}
           </div>
         </div>
       )}
