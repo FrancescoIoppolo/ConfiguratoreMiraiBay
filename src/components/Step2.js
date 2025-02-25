@@ -52,21 +52,22 @@ const Step2 = ({
 
             {/* Barra Range */}
             <input
-              className="inputRange"
-              type="range"
-              min="0"
-              max="10"
-              step="1"
-              value={answers[currentManager.id]?.[question] || 5}
-              onChange={(e) =>
-                handleRangeChange(currentManager.id, question, e.target.value)
-              }
-              style={{
-                width: "100%",
-                accentColor: currentManager.color
-                
-              }}
-            />
+  className="inputRange"
+  type="range"
+  min="0"
+  max="10"
+  step="1"
+  value={answers[currentManager.id]?.[question] || 5}
+  onChange={(e) =>
+    handleRangeChange(currentManager.id, question, e.target.value, e)
+  }
+  style={{
+    "--slider-color": currentManager.color,
+    "--progress": `${((answers[currentManager.id]?.[question] || 5) / 10) * 100}%`
+  }}
+/>
+
+
 
           
           </div>

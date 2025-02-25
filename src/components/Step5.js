@@ -8,7 +8,7 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
   // Funzione per validare i campi richiesti
   const validateStep = (step) => {
     let newErrors = {};
-  
+
     if (step === 5) {
       if (!answers.name) newErrors.name = "Campo obbligatorio";
     } else if (step === 6) {
@@ -22,15 +22,22 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
       if (!answers.attivita) newErrors.attivita = "Campo obbligatorio";
       if (!answers.sito) newErrors.sito = "Campo obbligatorio";
     }
-  
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0; // True se non ci sono errori
   };
-  
+
   // Funzione per avanzare di step con validazione
   const goToNextStep = (nextStep) => {
     if (validateStep(currentStep)) {
       setCurrentStep(nextStep);
+    }
+  };
+
+  // Funzione per avanzare premendo Invio
+  const handleEnter = (event, nextStep) => {
+    if (event.key === "Enter") {
+      goToNextStep(nextStep);
     }
   };
 
@@ -46,7 +53,9 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
               type="text"
               placeholder="Scrivi il tuo nome e cognome"
               value={answers.name || ""}
+              autoComplete="off" // Disabilita auto-complete
               onChange={(e) => setAnswers((prev) => ({ ...prev, name: e.target.value }))}
+              onKeyDown={(e) => handleEnter(e, 6)} // Premendo "Enter" va avanti
             />
             {errors.name && <p className="error-message">{errors.name}</p>}
           </div>
@@ -71,14 +80,18 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
               type="text"
               placeholder="La tua email di riferimento"
               value={answers.mail || ""}
+              autoComplete="off"
               onChange={(e) => setAnswers((prev) => ({ ...prev, mail: e.target.value }))}
+              onKeyDown={(e) => handleEnter(e, 7)}
             />
             {errors.mail && <p className="error-message">{errors.mail}</p>}
             <input
               type="text"
               placeholder="Il tuo numero di telefono /cellulare"
               value={answers.tel || ""}
+              autoComplete="off"
               onChange={(e) => setAnswers((prev) => ({ ...prev, tel: e.target.value }))}
+              onKeyDown={(e) => handleEnter(e, 7)}
             />
             {errors.tel && <p className="error-message">{errors.tel}</p>}
           </div>
@@ -104,14 +117,18 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
               type="text"
               placeholder="Il nome della tua azienda o attività?"
               value={answers.attivita || ""}
+              autoComplete="off"
               onChange={(e) => setAnswers((prev) => ({ ...prev, attivita: e.target.value }))}
+              onKeyDown={(e) => handleEnter(e, 8)}
             />
             {errors.attivita && <p className="error-message">{errors.attivita}</p>}
             <input
               type="text"
               placeholder="Il tuo sito web"
               value={answers.sito || ""}
+              autoComplete="off"
               onChange={(e) => setAnswers((prev) => ({ ...prev, sito: e.target.value }))}
+              onKeyDown={(e) => handleEnter(e, 8)}
             />
             {errors.sito && <p className="error-message">{errors.sito}</p>}
           </div>
@@ -132,7 +149,10 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
           <h1>Grazie!</h1>
           <p className="subTitle">Abbiamo ricevuto le tue informazioni. Ti contatteremo presto.</p>
           <div className="navigation-buttons button-container">
-            <button onClick={resetSelection}>Ricomincia</button>
+            {/* <button onClick={resetSelection}>Ricomincia</button> */}
+            <button onClick={() => setCurrentStep(7)}>
+              <img src={arrowL} alt="Freccia left" /> Indietro
+            </button>
           </div>
         </div>
       )}

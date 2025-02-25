@@ -1,21 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import arrowR from "./../assets/arrowR.png";
 
 const Step1 = ({
   selectedManagers,
+  setSelectedManagers,
   managersData,
   hoveredManager,
-  toggleManagerSelection,
   setHoveredManager,
+  toggleManagerSelection,
   setCurrentStep,
 }) => {
+  // Reset e selezione del primo manager quando si entra nello step 1
+  useEffect(() => {
+    if (managersData.length > 0) {
+      setSelectedManagers([]); // Seleziona solo il primo manager
+      setHoveredManager(managersData[0].id); // Imposta lo stato hover sulla prima card
+    }
+  }, []);
+
   return (
     <div>
       <h1>Crea il tuo team marketing</h1>
       <p className="subTitle">Clicca e scegli i tuoi manager di reparto.</p>
-      <p className="selezionati">
+
+      {/* Bottone Selezionati */}
+      <button
+        className={`selezionati ${selectedManagers.length > 0 ? "button" : ""}`}
+        onClick={() => selectedManagers.length > 0 && setCurrentStep(2)}
+      >
         Selezionati {selectedManagers.length} di {managersData.length}
-      </p>
+        {selectedManagers.length > 0 && (
+          <img src={arrowR} alt="Freccia destra" className="arrow-icon" />
+        )}
+      </button>
 
       {/* Griglia dei manager */}
       <div className="managers-grid">
@@ -44,15 +61,6 @@ const Step1 = ({
           );
         })}
       </div>
-
-      {/* Pulsante Avanti */}
-      {selectedManagers.length > 0 && (
-        <div className="button-container">
-          <button onClick={() => setCurrentStep(2)}>
-            Avanti <img src={arrowR} alt="Freccia destra" />
-          </button>
-        </div>
-      )}
     </div>
   );
 };

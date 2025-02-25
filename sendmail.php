@@ -1,9 +1,17 @@
 <?php
 
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 86400");
 header('Content-Type: text/html; charset=utf-8');
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -153,3 +161,4 @@ try {
 } catch (Exception $e) {
     echo json_encode(["status" => "error", "message" => "Errore nell'invio dell'email: {$mail->ErrorInfo}"]);
 }
+?>

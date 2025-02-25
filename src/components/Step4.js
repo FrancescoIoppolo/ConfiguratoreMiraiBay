@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import arrowR from "./../assets/arrowR.png";
 import arrowL from "./../assets/arrowL.png";
 import iconSrc from "./../assets/icon.png";
@@ -17,6 +17,10 @@ import {
   } from "recharts";
 
 const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, workModes, selectedWorkMode, setCurrentManagerIndex, resetSelection}) => {
+
+  const [hoveredManager, setHoveredManager] = useState(null);
+
+
   return (
     <div className="step4-container">
       <h1>La tua Priority Matrix</h1>
@@ -25,7 +29,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
       <div className="summary-container">
         {/* Radar Chart */}
         <div className="chart-container">
-          <ResponsiveContainer height={500}>
+          <ResponsiveContainer height={650}>
             <RadarChart cx="50%" cy="50%" outerRadius="50%" data={prepareChartData(selectedManagers, answers)}>
               <PolarGrid radialLines={false} stroke="white" strokeWidth={2} />
 
@@ -87,7 +91,23 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                 }}
               />
 
-              <Radar name="Priorità" dataKey="value" stroke="#3b82f6" fill="#0000FF" fillOpacity={0.8} />
+              {selectedManagers.map((manager) => {
+                const isHovered = hoveredManager === manager.id;
+                
+                return (
+                  <Radar
+                    key={manager.id}
+                    name={manager.name}
+                    dataKey={manager.id}
+                    stroke={manager.color}
+                    fill={manager.color}
+                    fillOpacity={isHovered ? 0.9 : 0.5}    // Se hover, più opaco
+                    animationDuration={1000}
+                  />
+                );
+              })}
+
+
 
               <PolarRadiusAxis
                 angle={0}
@@ -121,9 +141,12 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
         <ResponsiveContainer > 
           {selectedManagers.map((manager, index) => {
             // Filtra solo le domande di questo manager
-            const managerData = prepareChartData(selectedManagers, answers).filter((item) =>
-              manager.questions.includes(item.question)
-            );
+            const managerData = prepareChartData(selectedManagers, answers)
+  .map((item) => ({
+    question: item.question,
+    value: item[manager.id] || 0, // Assicura che prenda solo il valore del manager
+  }))
+  .filter((item) => manager.questions.includes(item.question));
 
             return (
               <div key={manager.id} className="manager-chart-block">
@@ -216,18 +239,21 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
         <div className="summary-sidebar">
           <h3>I tuoi manager di reparto scelti</h3>
           {selectedManagers.map((manager) => (
-            <div key={manager.id} className="selected-manager">
+            <div
+              key={manager.id}
+              className="manager-banner"
+              onMouseEnter={() => setHoveredManager(manager.id)}
+              onMouseLeave={() => setHoveredManager(null)}
+            >
               <img src={manager.images.card} alt={manager.name} />
             </div>
           ))}
-        </div>
-      </div>
 
-      {/* Pulsanti di navigazione */}
-      <div className="summaryWork">
+
+        <div className="summaryWork">
         <h3 className="modalitaLavoro">Modalità di lavoro</h3>
         <div className="work-modes-grid">
-          <div className="work-mode-card">
+          <div className="work-mode-card-risultati">
             {workModes.find((mode) => mode.id === selectedWorkMode) && (
               <h3 className="modeTitle">
                 <div className="modeCerchio">
@@ -242,6 +268,12 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
           </div>
         </div>
       </div>
+
+        </div>
+      </div>
+
+    
+      
 
       {/* Pulsanti di navigazione */}
       <div className="navigation-buttons button-container">

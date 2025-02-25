@@ -43,27 +43,53 @@ const TeamConfigurator = () => {
   
   // Funzione per trasformare i dati in un formato adatto al grafico
   const prepareChartData = (selectedManagers, answers) => {
-    // Ottieni tutte le domande possibili
-    const allQuestions = [...new Set(managersData.flatMap(manager => manager.questions))];
-  
-    return allQuestions.map(question => {
-      // Trova tutti i valori reali inseriti dai manager
-      const values = selectedManagers
-        .map(manager => answers[manager.id]?.[question])
-        .filter(value => value !== undefined); // Rimuove quelli non definiti
-  
-      // Se almeno un manager ha risposto, calcola la media
-      const avgValue = values.length > 0 
-        ? values.reduce((sum, value) => sum + parseFloat(value), 0) / values.length 
-        : 5; // Se nessun manager ha risposto, imposto il valore inizizle
-  
-      return { question, value: avgValue };
+    let allQuestions = new Set();
+
+    // Raccoglie tutte le domande di TUTTI i manager, anche non selezionati
+    managersData.forEach(manager => {
+        manager.questions.forEach(question => {
+            allQuestions.add(question);
+        });
     });
-  };
+
+    // Trasforma il set in array e crea il dataset
+    const data = Array.from(allQuestions).map(question => {
+        let obj = { question };
+
+        // Itera su tutti i manager globali
+        managersData.forEach(manager => {
+            const isSelected = selectedManagers.some(sel => sel.id === manager.id);
+
+            if (isSelected) {
+                // Se il manager è selezionato, prendi il suo valore reale
+                obj[manager.id] = manager.questions.includes(question)
+                    ? parseFloat(answers[manager.id]?.[question] || 5) // Se non risponde, assegna 10
+                    : 0;
+            } else {
+                // Se il manager NON è selezionato, tutti i valori sono 0
+                obj[manager.id] = 0;
+            }
+        });
+
+        return obj;
+    });
+
+    console.log("Dati RadarChart:", JSON.stringify(data, null, 2)); // DEBUG
+    return data;
+};
+
+
+  
+  
   
 
   // Funzione per aggiornare le risposte
-  const handleRangeChange = (managerId, question, value) => {
+  const handleRangeChange = (managerId, question, value, event) => {
+    const percentuale = (value / 10) * 100;
+  
+    // Imposta direttamente sulla barra specifica
+    event.target.style.setProperty("--progress", `${percentuale}%`);
+  
     setAnswers(prev => {
       const updatedAnswers = {
         ...prev,
@@ -72,7 +98,7 @@ const TeamConfigurator = () => {
           [question]: value
         }
       };
-      localStorage.setItem("answers", JSON.stringify(updatedAnswers)); // Salva nel Local Storage
+      localStorage.setItem("answers", JSON.stringify(updatedAnswers));
       return updatedAnswers;
     });
   };
@@ -100,23 +126,24 @@ const TeamConfigurator = () => {
   };
 
 
-
   useEffect(() => {
     if (currentStep === 8) { // Appena prima della pagina "Grazie!"
       // Otteniamo tutte le domande possibili per ogni manager
       const allQuestions = [...new Set(managersData.flatMap(manager => manager.questions))];
   
-      // Struttura le risposte, includendo tutte le domande anche se non risposte
+      // Struttura le risposte, includendo solo le domande pertinenti ai manager selezionati
       const formattedAnswers = selectedManagers.reduce((acc, manager) => {
-        acc[manager.id] = allQuestions.map(question => ({
+        acc[manager.id] = manager.questions.map(question => ({
           question,
           percentage: answers[manager.id]?.[question] !== undefined
             ? `${answers[manager.id][question]}%`
-            : 5 // Se la domanda non è stata modificata, segniamo come "Default"
+            : "5%" // Se la domanda non è stata modificata, assegna "0%"
         }));
         return acc;
       }, {});
-  
+      
+      
+
       // Dati finali da inviare
       const finalResults = {
         selectedManagers: selectedManagers.map(manager => ({
@@ -133,9 +160,12 @@ const TeamConfigurator = () => {
           sitoWeb: answers.sito || "Non specificato"
         }
       };
-  
-      // Invia i dati via emmail al file PHP
-      fetch("http://www.v-group.it/progetti/configuratore/sendmail.php", {
+
+      // 📌 DEBUG: Logga i dati in console
+      console.log("📤 Dati inviati al server:", JSON.stringify(finalResults, null, 2));
+
+      // Invia i dati via email al file PHP
+      fetch("https://newsite.miraibay.net/configuratore/sendmail.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -143,13 +173,13 @@ const TeamConfigurator = () => {
         body: JSON.stringify(finalResults)
       })
         .then(response => response.json())
-        .catch(error => console.error("Errore nell'invio dei dati:", error));
+        .then(data => console.log("📥 Risposta dal server:", data))
+        .catch(error => console.error("❌ Errore nell'invio dei dati:", error));
     }
   }, [currentStep]);
+
   
   
-
-
   return (
     <div className="team-configurator">
       
@@ -162,6 +192,7 @@ const TeamConfigurator = () => {
           hoveredManager={hoveredManager}
           setHoveredManager={setHoveredManager}
           toggleManagerSelection={toggleManagerSelection}
+          setSelectedManagers={setSelectedManagers}
         />
       )}
 
