@@ -1,19 +1,27 @@
 import benedettaDefault from "./assets/Benedetta.png";
+import benedettaMobile from "./assets/card_Benedetta.png";
+import benedettaMobileSelected from "./assets/BenedettaMobileSelected.png";
 import benedettaHover from "./assets/hover_Benedetta.png";
 import benedettaActive from "./assets/active_Benedetta.png";
 import benedettaCard from "./assets/card_Benedetta.png";
 
 import giuliaDefault from "./assets/Giulia.png";
+import giuliaMobile from "./assets/card_Giulia.png";
+import giuliaMobileSelected from "./assets/giuliaMobileSelected.png";
 import giuliaHover from "./assets/hover_Giulia.png";
 import giuliaActive from "./assets/active_Giulia.png";
 import giuliaCard from "./assets/card_Giulia.png";
 
 import davideDefault from "./assets/Davide.png";
+import davideMobile from "./assets/card_Davide.png";
+import davideMobileSelected from "./assets/davideMobileSelected.png";
 import davideHover from "./assets/hover_Davide.png";
 import davideActive from "./assets/active_Davide.png";
 import davideCard from "./assets/card_Davide.png";
 
 import andreaDefault from "./assets/Andrea.png";
+import andreaMobile from "./assets/card_Andrea.png";
+import andreaMobileSelected from "./assets/AndreaMobileSelected.png";
 import andreaHover from "./assets/hover_Andrea.png";
 import andreaActive from "./assets/active_Andrea.png";
 import andreaCard from "./assets/card_Andrea.png";
@@ -60,6 +68,8 @@ const managersData = [
     ],
     images: {
       default: benedettaDefault,
+      mobile: benedettaMobile,
+      mobileSelected: benedettaMobileSelected,
       hover: benedettaHover,
       active: benedettaActive,
       card: benedettaCard
@@ -89,6 +99,8 @@ const managersData = [
     ],
     images: {
       default: giuliaDefault,
+      mobile: giuliaMobile,
+      mobileSelected: giuliaMobileSelected,
       hover: giuliaHover,
       active: giuliaActive,
       card: giuliaCard 
@@ -117,6 +129,8 @@ const managersData = [
     ],
     images: {
       default: andreaDefault,
+      mobile: andreaMobile,
+      mobileSelected: andreaMobileSelected,
       hover: andreaHover, 
       active: andreaActive,
       card: andreaCard
@@ -145,6 +159,8 @@ const managersData = [
     ],
     images: {
       default: davideDefault,
+      mobile: davideMobile,
+      mobileSelected:davideMobileSelected,
       hover: davideHover, 
       active: davideActive,
       card: davideCard

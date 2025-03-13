@@ -162,7 +162,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
                   {/* Asse X per i valori */}
                   <XAxis 
                       type="number" 
-                      domain={[0, 11]} 
+                      domain={[0, 10]} 
                       stroke="white" 
                       tick={{ fontSize: "10px" }} 
                       tickCount={11}

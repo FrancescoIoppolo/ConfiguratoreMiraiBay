@@ -4,15 +4,15 @@
 body {
   font-family: "Poppins", Sans-serif;
   color: white;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
   overflow-x: hidden;
   
-  background-color: #000000;
+  /* background-color: #000000;
   background-image: url('../assets/bg_overlay.png');
   background-size: cover;
   background-position: center 1;
-  background-repeat: no-repeat;
+  background-repeat: no-repeat; */
 }
 
 h1 {
@@ -45,9 +45,9 @@ h1 {
 
 .team-configurator {
   color: white;
-  padding: 20px;
+  padding: 0px;
   text-align: center;
-  max-width: 100vw;
+  max-width: 100%;
   overflow: hidden;
   font-size: 12px;
 }
@@ -56,9 +56,9 @@ h1 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 50px;
   margin-top: 40px;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 .manager-card {
@@ -90,7 +90,7 @@ h1 {
 }
 
 .tags-section {
-  margin-top: 30px;
+  margin-top: 100px;
   text-align: center;
 }
 
@@ -206,7 +206,7 @@ h1 {
   display: flex;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 1200px;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -732,4 +732,51 @@ button:hover .icon {
 /* Track (Firefox) */
 .inputRange::-moz-range-track {
   background: transparent;
+}
+
+
+/* Di default mostra la versione desktop e nasconde la mobile */
+.manager-image.mobile {
+  display: none;
+}
+
+.manager-image.desktop {
+  display: block;
+}
+
+/* Quando lo schermo è mobile, nasconde la versione desktop e mostra la mobile */
+@media (max-width: 768px) {
+  .manager-image.mobile {
+    display: block;
+  }
+
+  .manager-image.desktop {
+    display: none;
+  }
+
+  .manager-card {
+    min-height: auto;
+    margin-top: 0px;
+    border-radius: 0px;
+  }
+
+  .manager-card:hover {
+    transform: scale(1.0);
+    opacity: 1;
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.6);
+  }
+  
+  .question-container{
+    display: block;
+  }
+
+  .question-text{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .range-wrapper{
+    width: 100%;
+  }
 }

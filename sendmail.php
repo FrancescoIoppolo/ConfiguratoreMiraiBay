@@ -11,22 +11,17 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require 'vendor/autoload.php'; 
 
-// Ricevi i dati JSON dal client
 $data = json_decode(file_get_contents("php://input"), true);
 
-// Controlla se i dati sono validi
 if (!$data) {
     die("Errore: nessun dato ricevuto.");
 }
 
-// Estrai i dati
 $selectedManagers = $data['selectedManagers'];
 $answers = $data['answers'];
 $selectedWorkMode = $data['selectedWorkMode'];
@@ -44,14 +39,12 @@ try {
     $mail->Port = 587; 
     $mail->isSMTP();
 
-    // Mittente e destinatario
     $mail->setFrom('noreply@devworks.it', 'Mirai Bay - Configuratore');
-    $mail->addAddress('francesco.ioppolo@gmail.com', 'Francesco Ioppolo'); 
-
-    // Oggetto dell'email
+    $mail->addAddress('gabriele.davin@mirai-bay.com');
+    $mail->addAddress('gabriele.tirelli@mirai-bay.com');
+    $mail->addAddress('marco.brignoli@mirai-bay.com');
     $mail->Subject = '📩 Nuova Richiesta da ' . htmlspecialchars($userData['name']);
 
-    // Template HTML
     $message = '
     <html>
     <head>
@@ -109,15 +102,11 @@ try {
     </body>
     </html>';
 
-    // Imposta il contenuto dell'email
     $mail->isHTML(true);
     $mail->Body = $message;
 
-    // Invia l'email
     $mail->send();
 
-
-    // Email ringraziamento utente
     $mailThankYou = new PHPMailer(true);
     $mailThankYou->CharSet = 'UTF-8';
     $mailThankYou->Host = 'smtp.ionos.it'; 
@@ -133,7 +122,6 @@ try {
 
     $mailThankYou->Subject = 'Grazie per la tua richiesta!';
 
-    // Template dettagliato email ringraziamento utente
     $thankYouMessage = '<html>
     <head>
         <style>
@@ -155,10 +143,10 @@ try {
     $mailThankYou->isHTML(true);
     $mailThankYou->Body = $thankYouMessage;
     $mailThankYou->send();
-
-    
+ 
     echo json_encode(["status" => "success", "message" => "Email inviata con successo"]);
 } catch (Exception $e) {
     echo json_encode(["status" => "error", "message" => "Errore nell'invio dell'email: {$mail->ErrorInfo}"]);
 }
+
 ?>
