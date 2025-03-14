@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300..900&family=Merriweather:wght@300;400;700;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-
-body {
+.bodyConfig {
   font-family: "Poppins", Sans-serif;
   color: white;
   padding: 0px;
@@ -15,7 +14,7 @@ body {
   background-repeat: no-repeat; */
 }
 
-h1 {
+.h1Config {
     font-family: "Poppins", Sans-serif;
     font-size: 52px;
     font-weight: 900;
@@ -28,6 +27,8 @@ h1 {
     font-weight: 600;
     line-height: 2rem;
     color: #FFFFFF;
+    margin-top: 1em!important;
+    margin-bottom: 1em!important;
   }
 
 .selezionati{
@@ -115,6 +116,21 @@ h1 {
   height: 30px;
   border-radius: 50%;
   margin-right: 8px;
+  max-width: 30px!important;
+}
+
+.h1Config {
+  font-family: "Poppins", Sans-serif!important;
+  font-size: 52px!important;
+  font-weight: 900!important;
+  color: #FFFFFF!important;
+  margin-top: 0.67em!important;
+  margin-bottom: 0.67em!important;
+}
+
+.p{
+  margin-top: 1em!important;
+  margin-bottom: 1em!important;
 }
 
 .tag-card .tag-text {
@@ -405,7 +421,11 @@ button:hover .icon {
   font-family: "Poppins", Sans-serif;
   font-size: 16px;
   color: #FFFFFF;
+  line-height: 24px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
+
 
 .summary-container {
   display: flex;
@@ -748,6 +768,20 @@ button:hover .icon {
 @media (max-width: 768px) {
   .manager-image.mobile {
     display: block;
+  }
+
+  #root{
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+
+  }
+
+  h1{
+    font-size: 30px!important;
+  }
+
+  .manager-image{
+    width: 280px;
   }
 
   .manager-image.desktop {

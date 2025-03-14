@@ -23,7 +23,7 @@ const Step4 = ({ selectedManagers, setCurrentStep, prepareChartData, answers, wo
 
   return (
     <div className="step4-container">
-      <h1>La tua Priority Matrix</h1>
+      <h1 className="h1Config">La tua Priority Matrix</h1>
       <p className="subTitle">Ecco il risultato delle tue scelte</p>
 
       <div className="summary-container">

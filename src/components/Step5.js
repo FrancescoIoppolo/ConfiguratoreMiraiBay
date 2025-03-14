@@ -45,7 +45,7 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
     <>
       {currentStep === 5 && (
         <div className="step-container">
-          <h1>Conosciamoci</h1>
+          <h1 className="h1Config">Conosciamoci</h1>
           <p className="subTitle">Dicci di più su di te e la tua attività</p>
 
           <div className="form-container">
@@ -72,7 +72,7 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
 
       {currentStep === 6 && (
         <div className="step-container">
-          <h1>Conosciamoci</h1>
+          <h1 className="h1Config">Conosciamoci</h1>
           <p className="subTitle">Dicci di più su di te e la tua attività</p>
 
           <div className="form-container">
@@ -109,7 +109,7 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
 
       {currentStep === 7 && (
         <div className="step-container">
-          <h1>Conosciamoci</h1>
+          <h1 className="h1Config">Conosciamoci</h1>
           <p className="subTitle">Dicci di più su di te e la tua attività</p>
 
           <div className="form-container">
@@ -146,7 +146,7 @@ const Step1 = ({ setCurrentStep, answers, setAnswers, currentStep, resetSelectio
 
       {currentStep === 8 && (
         <div className="step-container">
-          <h1>Grazie!</h1>
+          <h1 className="h1Config">Grazie!</h1>
           <p className="subTitle">Abbiamo ricevuto le tue informazioni. Ti contatteremo presto.</p>
           <div className="navigation-buttons button-container">
             <button onClick={resetSelection}>Ricomincia</button>

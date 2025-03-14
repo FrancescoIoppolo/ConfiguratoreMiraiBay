@@ -26,7 +26,6 @@ import andreaHover from "./assets/hover_Andrea.png";
 import andreaActive from "./assets/active_Andrea.png";
 import andreaCard from "./assets/card_Andrea.png";
 
-import consulenza from "./assets/consulenza.png";
 import done_for_you from "./assets/done_for_you.png";
 import fte from "./assets/fte.png";
 
@@ -48,6 +47,9 @@ import icon15 from "./assets/icon-15.png";
 import icon16 from "./assets/icon-16.png";
 import icon17 from "./assets/icon-17.png";
 
+const getImagePath = (path) => `http://newsite.miraibay.net/configuratore${path}`;
+
+
 const managersData = [
   {
     id: "benedetta",
@@ -67,12 +69,12 @@ const managersData = [
       { image: icon5, role: "Retention & Loyalty" },
     ],
     images: {
-      default: benedettaDefault,
-      mobile: benedettaMobile,
-      mobileSelected: benedettaMobileSelected,
-      hover: benedettaHover,
-      active: benedettaActive,
-      card: benedettaCard
+      default: getImagePath("/assets/Benedetta.png"),
+      mobile: getImagePath("/assets/card_Benedetta.png"),
+      mobileSelected: getImagePath("/assets/BenedettaMobileSelected.png"),
+      hover: getImagePath("/assets/hover_Benedetta.png"),
+      active: getImagePath("/assets/active_Benedetta.png"),
+      card: getImagePath("/assets/card_Benedetta.png")
     },
     questions: [
       "Conoscere il mercato",
@@ -98,12 +100,12 @@ const managersData = [
       { image: icon9, role: "Visual Strategy" },
     ],
     images: {
-      default: giuliaDefault,
-      mobile: giuliaMobile,
-      mobileSelected: giuliaMobileSelected,
-      hover: giuliaHover,
-      active: giuliaActive,
-      card: giuliaCard 
+      default: getImagePath("/assets/Giulia.png"),
+      mobile: getImagePath("/assets/card_Giulia.png"),
+      mobileSelected: getImagePath("/assets/giuliaMobileSelected.png"),
+      hover: getImagePath("/assets/hover_Giulia.png"),
+      active: getImagePath("/assets/active_Giulia.png"),
+      card: getImagePath("/assets/card_Giulia.png")
     },
     questions: [
       "Definire l'immagine del brand",
@@ -128,13 +130,12 @@ const managersData = [
       { image: icon13   , role: "Cloud Computing" },
     ],
     images: {
-      default: andreaDefault,
-      mobile: andreaMobile,
-      mobileSelected: andreaMobileSelected,
-      hover: andreaHover, 
-      active: andreaActive,
-      card: andreaCard
-
+      default: getImagePath("/assets/Andrea.png"),
+      mobile: getImagePath("/assets/card_Andrea.png"),
+      mobileSelected: getImagePath("/assets/AndreaMobileSelected.png"),
+      hover: getImagePath("/assets/hover_Andrea.png"),
+      active: getImagePath("/assets/active_Andrea.png"),
+      card: getImagePath("/assets/card_Andrea.png")
     },
     questions: [
       "Creare l'infrastruttura digitale",
@@ -158,13 +159,12 @@ const managersData = [
       { image: icon17   , role: "Comunicazione Efficace" },
     ],
     images: {
-      default: davideDefault,
-      mobile: davideMobile,
-      mobileSelected:davideMobileSelected,
-      hover: davideHover, 
-      active: davideActive,
-      card: davideCard
-
+      default: getImagePath("/assets/Davide.png"),
+      mobile: getImagePath("/assets/card_Davide.png"),
+      mobileSelected: getImagePath("/assets/davideMobileSelected.png"),
+      hover: getImagePath("/assets/hover_Davide.png"),
+      active: getImagePath("/assets/active_Davide.png"),
+      card: getImagePath("/assets/card_Davide.png")
     },
     questions: [
       "Elevare le competenze interne",
@@ -184,7 +184,7 @@ const workModes = [
   {
     id: "consulenza",
     title: "Consulenza",
-    icon: consulenza,
+    icon: getImagePath("/assets/consulenza.png"),
     description: "Forniamo supporto strategico su misura per guidarti nel raggiungimento degli obiettivi di crescita."
   },
   {

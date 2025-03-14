@@ -23,7 +23,7 @@ const Step1 = ({
 
   return (
     <div>
-      <h1>Crea il tuo team marketing</h1>
+      <h1 className="h1Config">Crea il tuo team marketing</h1>
       <p className="subTitle">Clicca e scegli i tuoi manager di reparto.</p>
 
       <button

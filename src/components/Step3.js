@@ -17,7 +17,7 @@ const Step2 = ({
 
   return (
     <div>
-      <h1>Quale modalità di lavoro preferisci?</h1>
+      <h1 className="h1Config">Quale modalità di lavoro preferisci?</h1>
       <p className="subTitle">Come vuoi che lavoriamo per te?</p>
 
       {/* Sezione delle modalità di lavoro */}

@@ -28,7 +28,7 @@ const Step2 = ({
         />
       </div>
 
-      <h1>Cos’è importante per te?</h1>
+      <h1 className="h1Config">Cos’è importante per te?</h1>
       <p className="subTitle">Vota gli obiettivi di reparto in base alle tue esigenze</p>
 
       {/* Mappatura delle domande per il manager attuale */}
